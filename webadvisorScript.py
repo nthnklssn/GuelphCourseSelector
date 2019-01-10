@@ -1,0 +1,173 @@
+from web_utils import newDriver
+import time
+subjectDict = { "Accounting" : "ACCT - Accounting",
+    "Agribusiness" : "AGBU - Agribusiness",
+    "Agriculture" : "AGR - Agriculture",
+    "Arts/Humanities/Social Sci": "AHSS - Arts/Humanities/Social Sci",
+    "Animal Science": "ANSC - Animal Science",
+    "Anthropology": "ANTH - Anthropology",
+    "Aquaculture": "AQUA - Aquaculture",
+    "Arabic": "ARAB - Arabic",
+    "Art History": "ARTH - Art History",
+    "Arts & Sciences": "ASCI - Arts & Sciences",
+    "Art and Visual Culture": "AVC - Art & Visual Culture",
+    "Business Administration": "BADM - Business Administration",
+    "Bioinformatics" : "BINF - Bioinformatics",
+    "Biochemistry" : "BIOC - Biochemistry",
+    "Biology" : "BIOL - Biology",
+    "Biomedical Science" : "BIOM - Biomedical Science",
+    "Biophysics": "BIOP - Biophysics",
+    "Biotechnology": "BIOT - Biotechnology",
+    "Botany": "BOT - Botany",
+    "Business": "BUS - Business",
+    "Criminology/Criminal Justice": "CCJP - Criminology/Criminal Justice",
+    "Capacity Development/Extension": "CDE - Capacity Development/Extension",
+    "Chemistry": "CHEM - Chemistry",
+    "Chinese": "CHIN - Chinese",
+    "Computer Science": "CIS - Computing & Information Sci.",
+    "Classical Studies": "CLAS - Classical Studies",
+    "Clinical Studies": "CLIN - Clinical Studies",
+    "Commerce, Management and Economics": "CME - Commerce,Management&Economics",
+    "Co-Op": "COOP - Co-Op Education",
+    "Crop Science": "CROP - Crop Science",
+    "Creative Writing": "CRWR - Creative Writing",
+    "Agri-Food Leadership": "DAFL - Agri-Food Leadership (diploma)",
+    "Ag and Equine Studies": "DAGR - Ag. & Equine Studies (dip)",
+    "Environmental Management": "DENM - Environmental Mngt (diploma)",
+    "Equine (Diploma)": "DEQN - Equine (Diploma)",
+    "Nutrition (Diploma)": "DFN - Food & Nutrition (diploma)",
+    "Horticulture (Diploma)": "DHRT - Horticulture (diploma)",
+    "Turf Management (Diploma)": "DTM - Turf Management (diploma)",
+    "Veterinary Technology (Diploma)": "DVT - Veterinary Technology (dip)",
+    "Economics": "ECON - Economics",
+    "Early Childhood Studies": "ECS - Early Childhood Studies",
+    "Env. Design/Rural Development": "EDRD - Env. Design/Rural Development",
+    "Engineering": "ENGG - Engineering",
+    "English": "ENGL - English",
+    "Environmental Biology": "ENVB - Environmental Biology",
+    "Environmental Management": "ENVM - Environmental Management",
+    "Environmental Sciences": "ENVS - Environmental Sciences",
+    "Equine": "EQN - Equine",
+    "European Studies": "EURO - European Studies",
+    "Food, Agr & Resource Economics": "FARE - Food, Agr & Resource Economics",
+    "Family/Community Social Servic": "FCSS - Family/Community Social Servic",
+    "Food & Nutritional Science": "FDNT - Food & Nutritional Science",
+    "Fine Art": "FINA - Fine Art",
+    "Food Science": "FOOD - Food Science",
+    "Family Rel's/Applied Nutrition": "FRAN - Family Rel's/Applied Nutrition",
+    "French Studies": "FREN - French Studies",
+    "Family Relations & Human Dev": "FRHD - Family Relations & Human Dev.",
+    "Food Safety & Quality Assuranc": "FSQA - Food Safety & Quality Assuranc",
+    "Geography": "GEOG - Geography",
+    "German Studies": "GERM - German Studies",
+    "Gerontology": "GERO - Gerontology",
+    "Greek Studies": "GREK - Greek Studies",
+    "Human Health/Nutritional Sci": "HHNS - Human Health/Nutritional Sci",
+    "Hispanic Studies": "HISP - Hispanic Studies",
+    "History": "HIST - History",
+    "Human Kinetics": "HK - Human Kinetics",
+    "Horticultural Science": "HORT - Horticultural Science",
+    "Human Resource/Organizat Behav": "HROB - Human Resource/Organizat Behav",
+    "Hospitality & Tourism Mngt": "HTM - Hospitality & Tourism Mngt",
+    "Humanities": "HUMN - Humanities",
+    "Integrative Biology": "IBIO - Integrative Biology",
+    "International Development Std": "IDEV - International Development Std.",
+    "Interdisciplinary": "INT - Interdisciplinary",
+    "Interdisciplinary Physical Sci": "IPS - Interdisciplinary Physical Sci",
+    "Interdisciplinary Social Sci": "ISS - Interdisciplinary Social Sci.",
+    "Italian Studies": "ITAL - Italian Studies",
+    "Justice Studies": "JUST - Justice Studies",
+    "Kinesiology": "KIN - Kinesiology",
+    "Latin American/Caribbean St": "LACS - Latin American/Caribbean St",
+    "Landscape Architecture": "LARC - Landscape Architecture",
+    "Latin": "LAT - Latin",
+    "Leadership": "LEAD - Leadership",
+    "Linguistics": "LING - Linguistics",
+    "Land Resource Science": "LRS - Land Resource Science",
+    "Literary/Theatre Studies": "LTS - Literary/Theatre Studies",
+    "Mathematics": "MATH - Mathematics",
+    "Molecular Biology & Genetics": "MBG - Molecular Biology & Genetics",
+    "Molecular & Cellular Biology": "MCB - Molecular & Cellular Biology",
+    "McMaster": "MCM - McMaster",
+    "Marketing & Consumer ": "MCS - Marketing & Consumer Studies",
+    "Media Studies": "MDST - Media Studies",
+    "Management": "MGMT - Management",
+    "Microbiology": "MICR - Microbiology",
+    "Music" : "MUSC - Music",
+    "Nanoscience": "NANO - Nanoscience",
+    "Neuroscience": "NEUR - Neuroscience",
+    "Natural Resource ": "NRS - Natural Resource Studies",
+    "Nutrition": "NUTR - Nutrition",
+    "Organic Agriculture": "OAGR - Organic Agriculture",
+    "Pathobiology": "PABI - Pathobiology",
+    "Pathology": "PATH - Pathology",
+    "Plant Biology": "PBIO - Plant Biology",
+    "Philosophy": "PHIL - Philosophy",
+    "Physics": "PHYS - Physics",
+    "Plant Agriculture": "PLNT - Plant Agriculture",
+    "Political Science": "POLS - Political Science",
+    "Population Medicine": "POPM - Population Medicine",
+    "Portuguese": "PORT - Portuguese",
+    "Psychology": "PSYC - Psychology",
+    "Real Estate & Housing": "REAL - Real Estate & Housing",
+    "Rural PLanning & Development": "RPD - Rural Planning & Development",
+    "Rural Studies": "RST - Rural Studies",
+    "Studio Art": "SART - Studio Art",
+    "Science & Math": "SCMA - Science & Math",
+    "Sociology & Anthropology": "SOAN - Sociology & Anthropology",
+    "Sociology": "SOC - Sociology",
+    "Spanish": "SPAN - Spanish",
+    "Statistics": "STAT - Statistics",
+    "Theatre Studies": "THST - Theatre Studies",
+    "Toxicology": "TOX - Toxicology",
+    "Tourism and Hospitality": "TRMH - Tourism and Hospitality",
+    "Interdisciplinary University": "UNIV - Interdisciplinary University",
+    "Veterinary Medicine": "VETM - Veterinary Medicine",
+    "Waterloo": "WAT - Waterloo",
+    "Wilfrid Laurier": "WLU - Wilfrid Laurier",
+    "Women's Studies": "WMST - Women's Studies",
+    "Seneca College": "XSEN - Seneca College",
+    "Sheridan College": "XSHR - Sheridan College",
+    "Zoology": "ZOO - Zoology"
+    }
+
+yearDict = { "010": "010 - Diploma - 1st Semester",
+    "020": "020 - Diploma - 2nd Semester",
+    "030": "030 - Diploma - 3rd Semester",
+    "040": "040 - Diploma - 4th Semester",
+    "100": "100 - First Year",
+    "200": "200 - Second Year",
+    "300": "300 - Third Year",
+    "400": "400 - Fourth Year",
+    "500": "500 - Graduate",
+    "600": "600 - Graduate",
+    "700": "700 - Graduate",
+    "800": "800 - Graduate",
+    "900": "900 - Transfer Credit"}
+
+
+def searchforCourse(testDriver, semester, subject, year, code= ""):
+    testDriver.findSelectElement('//*[@id="VAR1"]/option', semester)
+    testDriver.findSelectElement('//*[@id="LIST_VAR1_1"]/option', subjectDict[subject])
+    testDriver.findSelectElement('//*[@id="LIST_VAR2_1"]/option', yearDict[year])
+    testDriver.enterTextValue('//*[@id="LIST_VAR3_1"]', code)
+
+def selectCourse(testDriver, time, professor=None):
+    testDriver.findCheckElement
+
+
+testDriver = newDriver()
+
+testDriver.loadWebPage("https://webadvisor.uoguelph.ca/WebAdvisor/WebAdvisor?TYPE=M&PID=CORE-WBMAIN&TOKENIDX=8290532176")
+time.sleep(5)
+testDriver.login(raw_input("Enter Login"), raw_input("Enter Password"))
+courses = [["F18 - Fall 2018", "Integrative Biology", "400"], ["F18 - Fall 2018", "Engineering", "300"]]
+for course in courses:
+    searchforCourse(testDriver, course[0], course[1], course[2])
+    time.sleep(5)
+    testDriver.goBacktoSelect()
+
+time.sleep(30)
+
+
+testDriver.teardown()
