@@ -1,5 +1,6 @@
 Automated Course Enroller For University Of Guelph.
-This code was made by Nathan Klassen, UoG
+This code was made by Nathan Klassen, UoG.
+
 Use this program at your own risk, as I am not responsible for any errors you make to your schedule.
 
 Usernames and Passwords you enter in the program are in no way stored or sent back to me.
@@ -17,7 +18,8 @@ The program will continuosly try and enroll you in the courses.
 
 To run the program just type:
 
-    python webadvisorScript.py in the terminal
+    python webadvisorScript.py
+in the terminal.
 
 Values such as username, passwords and course detailes can be hardcoded for speed/ testing.
 Uncomment line 49 in the web_utils file for the program to be functional otherwise it is just for demo purposes.
