@@ -14,7 +14,7 @@ This program will auto enroll you in up to 6 courses in a given semester.
 You must enter your WebAdvisor username and password and then the details of the courses you are taking,
 including section number.
 
-The program will continuosly try and enroll you in the courses.
+The program will continuously try to enroll you in the courses.
 
 To run the program just type:
 
@@ -26,7 +26,7 @@ Uncomment line 49 in the web_utils file for the program to be functional otherwi
 ***************
 Code BreakDown
 ***************
-The code is seperated into two sections, web_utils contains the utilities used for the script.
+The code is separated into two sections, web_utils contains the utilities used for the script.
 The code in web_utils could be re-used for more automation services on WebAdvisor.
 Code located in webadvisorScript is just used to automate and enroll in the desired courses.
 
